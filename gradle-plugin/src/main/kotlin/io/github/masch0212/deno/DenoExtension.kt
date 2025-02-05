@@ -1,4 +1,4 @@
-package com.masch212.deno
+package io.github.masch0212.deno
 
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property

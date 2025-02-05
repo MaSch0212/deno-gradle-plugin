@@ -1,12 +1,11 @@
-import com.masch212.deno.RunDenoTask
+import io.github.masch0212.deno.RunDenoTask
 
 plugins {
-//    kotlin("jvm") version "1.8.0"
-    id("com.masch212.deno")
+    id("io.github.masch0212.deno")
 }
 
-group = "com.masch212"
-version = "1.0-SNAPSHOT"
+group = "io.github.masch0212"
+version = "0.0.1"
 
 deno {
     version.set("2.1.8")

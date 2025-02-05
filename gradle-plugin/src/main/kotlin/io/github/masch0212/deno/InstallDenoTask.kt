@@ -1,4 +1,4 @@
-package com.masch212.deno
+package io.github.masch0212.deno
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
