@@ -9,7 +9,7 @@ group = "io.github.masch0212"
 version = "0.0.1"
 
 deno {
-    version.set("2.1.8")
+    version.set("2.1.7")
 }
 
 repositories {

@@ -4,11 +4,13 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
+import org.gradle.process.ExecOperations
 import java.io.File
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import javax.inject.Inject
 
-open class RunDenoTask : DefaultTask() {
+open class RunDenoTask @Inject constructor(private val execOperations: ExecOperations) : DefaultTask() {
     companion object {
         private val COMMAND_PART_REGEX = Pattern.compile("""[^\s"']+|"(.*?)"|'(.*?)'""")
     }
@@ -45,13 +47,13 @@ open class RunDenoTask : DefaultTask() {
 
         println("🚀 Running: ${denoExecutable.name} $command")
         val commandParts = parseCommand(command)
-        project.exec {
+        execOperations.exec {
             commandLine(denoExecutable.absolutePath, *commandParts.toTypedArray())
         }
     }
 
     private fun fetchLatestInstalledVersion(cacheDir: File): String {
-        return cacheDir.list()?.sortedDescending()?.firstOrNull()
+        return cacheDir.list()?.maxOrNull()
             ?: throw IllegalStateException("❌ No installed Deno versions found!")
     }
 

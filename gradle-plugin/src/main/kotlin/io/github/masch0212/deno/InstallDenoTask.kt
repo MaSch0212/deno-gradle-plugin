@@ -1,13 +1,17 @@
 package io.github.masch0212.deno
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.provider.ProviderFactory
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
+import org.gradle.process.ExecOperations
 import java.io.File
+import java.net.URI
 import java.net.URL
+import javax.inject.Inject
 
-open class InstallDenoTask : DefaultTask() {
+open class InstallDenoTask @Inject constructor(private val execOperations: ExecOperations) : DefaultTask() {
     @Input
     @Optional
     var version: String = "latest"
@@ -50,7 +54,7 @@ open class InstallDenoTask : DefaultTask() {
 
     private fun fetchLatestDenoVersion(): String {
         println("🔍 Fetching latest Deno version...")
-        return URL("https://dl.deno.land/release-latest.txt").readText().trim()
+        return URI("https://dl.deno.land/release-latest.txt").toURL().readText().trim()
     }
 
     private fun detectOsTarget(): String {
@@ -68,7 +72,7 @@ open class InstallDenoTask : DefaultTask() {
 
     private fun downloadFile(url: String, outputFile: File) {
         println("🌍 Downloading from: $url")
-        URL(url).openStream().use { input ->
+        URI(url).toURL().openStream().use { input ->
             outputFile.outputStream().use { output ->
                 input.copyTo(output)
             }
@@ -77,7 +81,7 @@ open class InstallDenoTask : DefaultTask() {
 
     private fun extractZip(zipFile: File, outputDir: File) {
         println("📦 Extracting ${zipFile.name} to $outputDir")
-        project.exec {
+        execOperations.exec {
             commandLine("tar", "-xf", zipFile.absolutePath, "-C", outputDir.absolutePath)
         }
         zipFile.delete() // Cleanup
