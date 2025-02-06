@@ -54,8 +54,8 @@ open class InstallDenoTask : DefaultTask() {
     }
 
     private fun detectOsTarget(): String {
-        val osName = System.getProperty("os.name").toLowerCase()
-        val arch = System.getProperty("os.arch").toLowerCase()
+        val osName = System.getProperty("os.name").lowercase()
+        val arch = System.getProperty("os.arch").lowercase()
 
         return when {
             osName.contains("win") -> "x86_64-pc-windows-msvc"

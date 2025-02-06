@@ -2,6 +2,7 @@ import io.github.masch0212.deno.RunDenoTask
 
 plugins {
     id("io.github.masch0212.deno")
+//    id("io.github.masch0212.deno").version("0.0.1")
 }
 
 group = "io.github.masch0212"
