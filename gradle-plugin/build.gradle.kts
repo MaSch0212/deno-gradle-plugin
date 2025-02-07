@@ -32,10 +32,10 @@ dependencies {
     implementation(localGroovy())
 }
 
-//tasks.test {
+// tasks.test {
 //    useJUnitPlatform()
-//}
+// }
 
-//kotlin {
+// kotlin {
 //    jvmToolchain(8)
-//}
+// }
