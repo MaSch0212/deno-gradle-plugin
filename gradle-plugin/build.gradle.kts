@@ -16,6 +16,7 @@ gradlePlugin {
             id = "io.github.masch0212.deno"
             displayName = "Deno Gradle Plugin"
             description = "A plugin to install and manage Deno versions"
+            tags = listOf("deno")
             implementationClass = "io.github.masch0212.deno.DenoPlugin"
         }
     }
