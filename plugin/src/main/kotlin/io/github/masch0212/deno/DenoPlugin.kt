@@ -16,11 +16,9 @@ constructor(private val globalCache: DefaultGlobalScopedCacheBuilderFactory) : P
     }
 
     // Extensions
-    val extension = target.extensions.create("deno", DenoExtension::class.java)
+    target.extensions.create("deno", DenoExtension::class.java)
 
     // Tasks
-    target.tasks.register("installDeno", InstallDenoTask::class.java) {
-      version = extension.version.get()
-    }
+    target.tasks.register("installDeno", InstallDenoTask::class.java)
   }
 }
