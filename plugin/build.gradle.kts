@@ -1,4 +1,5 @@
 plugins {
+  kotlin("jvm") version "2.0.20"
   `kotlin-dsl`
   `java-gradle-plugin`
   id("com.gradle.plugin-publish") version "1.3.1"
@@ -8,6 +9,16 @@ plugins {
 group = "io.github.masch0212"
 
 version = "0.0.1"
+
+kotlin { jvmToolchain(21) }
+
+repositories { mavenCentral() }
+
+dependencies {
+  //    testImplementation(kotlin("test"))
+  implementation(gradleApi())
+  implementation(localGroovy())
+}
 
 gradlePlugin {
   website = "https://github.com/MaSch0212/deno-gradle-plugin"
@@ -22,14 +33,6 @@ gradlePlugin {
       implementationClass = "io.github.masch0212.deno.DenoPlugin"
     }
   }
-}
-
-repositories { mavenCentral() }
-
-dependencies {
-  //    testImplementation(kotlin("test"))
-  implementation(gradleApi())
-  implementation(localGroovy())
 }
 
 // tasks.test {

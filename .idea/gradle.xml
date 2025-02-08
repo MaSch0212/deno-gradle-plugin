@@ -7,9 +7,9 @@
         <compositeConfiguration>
           <compositeBuild compositeDefinitionSource="SCRIPT">
             <builds>
-              <build path="$PROJECT_DIR$/gradle-plugin" name="gradle-plugin">
+              <build path="$PROJECT_DIR$/plugin" name="plugin">
                 <projects>
-                  <project path="$PROJECT_DIR$/gradle-plugin" />
+                  <project path="$PROJECT_DIR$/plugin" />
                 </projects>
               </build>
             </builds>
@@ -20,7 +20,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/gradle-plugin" />
+            <option value="$PROJECT_DIR$/plugin" />
+            <option value="$PROJECT_DIR$/samples" />
           </set>
         </option>
       </GradleProjectSettings>
