@@ -1,35 +1,35 @@
 plugins {
-    `kotlin-dsl`
-    `java-gradle-plugin`
-    id("com.gradle.plugin-publish") version "1.3.1"
+  `kotlin-dsl`
+  `java-gradle-plugin`
+  id("com.gradle.plugin-publish") version "1.3.1"
+  id("com.ncorti.ktfmt.gradle") version "0.22.0"
 }
 
 group = "io.github.masch0212"
+
 version = "0.0.1"
 
 gradlePlugin {
-    website = "https://github.com/MaSch0212/deno-gradle-plugin"
-    vcsUrl = "https://github.com/MaSch0212/deno-gradle-plugin"
+  website = "https://github.com/MaSch0212/deno-gradle-plugin"
+  vcsUrl = "https://github.com/MaSch0212/deno-gradle-plugin"
 
-    plugins {
-        create("denoPlugin") {
-            id = "io.github.masch0212.deno"
-            displayName = "Deno Gradle Plugin"
-            description = "A plugin to install and manage Deno versions"
-            tags = listOf("deno")
-            implementationClass = "io.github.masch0212.deno.DenoPlugin"
-        }
+  plugins {
+    create("denoPlugin") {
+      id = "io.github.masch0212.deno"
+      displayName = "Deno Gradle Plugin"
+      description = "A plugin to install and manage Deno versions"
+      tags = listOf("deno")
+      implementationClass = "io.github.masch0212.deno.DenoPlugin"
     }
+  }
 }
 
-repositories {
-    mavenCentral()
-}
+repositories { mavenCentral() }
 
 dependencies {
-//    testImplementation(kotlin("test"))
-    implementation(gradleApi())
-    implementation(localGroovy())
+  //    testImplementation(kotlin("test"))
+  implementation(gradleApi())
+  implementation(localGroovy())
 }
 
 // tasks.test {
