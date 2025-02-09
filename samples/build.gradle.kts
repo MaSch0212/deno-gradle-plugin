@@ -19,7 +19,7 @@ tasks.register<RunDenoTask>("myTestDenoTask") {
   /**
    * Commands:
    * - run ✅
-   * - serve ⏳
+   * - serve ✅
    * - task ✅
    * - repl ❌
    * - eval ✅

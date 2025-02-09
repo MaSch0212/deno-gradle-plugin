@@ -3,7 +3,7 @@
 package io.github.masch0212.deno.command
 
 class DenoEvalCommandBuilder(
-    val code: String,
+    val script: String,
     runOptions: DenoCommandBuilderRunOptionsComposable<DenoEvalCommandBuilder> =
         DenoCommandBuilderRunOptionsComposableImpl(),
     typeChecking: DenoCommandBuilderTypeCheckingComposable<DenoEvalCommandBuilder> =
@@ -20,7 +20,10 @@ class DenoEvalCommandBuilder(
     DenoCommandBuilderWithDependencyManagement<DenoEvalCommandBuilder> by dependencyManagement {
 
   init {
+    runOptions.initialize(this)
     typeChecking.initialize(this)
+    debugging.initialize(this)
+    dependencyManagement.initialize(this)
   }
 
   override fun build() =
@@ -28,7 +31,7 @@ class DenoEvalCommandBuilder(
           sequence {
                 yield("eval")
                 yieldAll(args)
-                yield(code)
+                yield(script)
               }
               .toList(),
           environment.toMap(),

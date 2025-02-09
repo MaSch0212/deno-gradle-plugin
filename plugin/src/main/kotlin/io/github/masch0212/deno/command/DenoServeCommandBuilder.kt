@@ -1,32 +1,31 @@
-@file:Suppress("unused", "MemberVisibilityCanBePrivate")
-
 package io.github.masch0212.deno.command
 
 import io.github.masch0212.deno.extensions.quoteIfNecessary
 
-class DenoRunCommandBuilder(
-    val filePath: String,
+class DenoServeCommandBuilder(
+    var filePath: String,
     scriptArgs: Iterable<String>? = null,
-    runOptions: DenoCommandBuilderRunOptionsComposable<DenoRunCommandBuilder> =
+    runOptions: DenoCommandBuilderRunOptionsComposable<DenoServeCommandBuilder> =
         DenoCommandBuilderRunOptionsComposableImpl(),
-    typeChecking: DenoCommandBuilderTypeCheckingComposable<DenoRunCommandBuilder> =
+    typeChecking: DenoCommandBuilderTypeCheckingComposable<DenoServeCommandBuilder> =
         DenoCommandBuilderTypeCheckingComposableImpl(),
-    fileWatching: DenoCommandBuilderFileWatchingComposable<DenoRunCommandBuilder> =
+    fileWatching: DenoCommandBuilderFileWatchingComposable<DenoServeCommandBuilder> =
         DenoCommandBuilderFileWatchingComposableImpl(),
-    debugging: DenoCommandBuilderDebuggingComposable<DenoRunCommandBuilder> =
+    debugging: DenoCommandBuilderDebuggingComposable<DenoServeCommandBuilder> =
         DenoCommandBuilderDebuggingComposableImpl(),
-    dependencyManagement: DenoCommandBuilderDependencyManagementComposable<DenoRunCommandBuilder> =
+    dependencyManagement:
+        DenoCommandBuilderDependencyManagementComposable<DenoServeCommandBuilder> =
         DenoCommandBuilderDependencyManagementComposableImpl(),
-    security: DenoCommandBuilderSecurityComposable<DenoRunCommandBuilder> =
+    security: DenoCommandBuilderSecurityComposable<DenoServeCommandBuilder> =
         DenoCommandBuilderSecurityComposableImpl()
 ) :
-    DenoCommandBuilderBase<DenoRunCommandBuilder>(),
-    DenoCommandBuilderWithRunOptions<DenoRunCommandBuilder> by runOptions,
-    DenoCommandBuilderWithTypeChecking<DenoRunCommandBuilder> by typeChecking,
-    DenoCommandBuilderWithFileWatching<DenoRunCommandBuilder> by fileWatching,
-    DenoCommandBuilderWithDebugging<DenoRunCommandBuilder> by debugging,
-    DenoCommandBuilderWithDependencyManagement<DenoRunCommandBuilder> by dependencyManagement,
-    DenoCommandBuilderWithSecurity<DenoRunCommandBuilder> by security {
+    DenoCommandBuilderBase<DenoServeCommandBuilder>(),
+    DenoCommandBuilderWithRunOptions<DenoServeCommandBuilder> by runOptions,
+    DenoCommandBuilderWithTypeChecking<DenoServeCommandBuilder> by typeChecking,
+    DenoCommandBuilderWithFileWatching<DenoServeCommandBuilder> by fileWatching,
+    DenoCommandBuilderWithDebugging<DenoServeCommandBuilder> by debugging,
+    DenoCommandBuilderWithDependencyManagement<DenoServeCommandBuilder> by dependencyManagement,
+    DenoCommandBuilderWithSecurity<DenoServeCommandBuilder> by security {
 
   /** The arguments to pass to the script. */
   val scriptArgs = scriptArgs?.toMutableList() ?: mutableListOf()
@@ -43,7 +42,7 @@ class DenoRunCommandBuilder(
   override fun build() =
       DenoCommand(
           sequence {
-                yield("run")
+                yield("serve")
                 yieldAll(args)
                 yield(filePath)
                 yieldAll(scriptArgs)
@@ -109,4 +108,17 @@ class DenoRunCommandBuilder(
    * @param value The value for the argument.
    */
   fun <V> scriptValueArg(arg: String, value: V) = scriptValueArg(arg, value?.toString())
+
+  /**
+   * Run multiple server workers in parallel. Parallelism defaults to the number of available CPUs
+   * or the value of the DENO_JOBS environment variable.
+   */
+  fun parallel() = args("--parallel")
+
+  /**
+   * The TCP port to serve on. Pass 0 to pick a random free port. (Default: 8080)
+   *
+   * @param port The port to serve on.
+   */
+  fun port(port: Int) = valueArg("--port", port)
 }

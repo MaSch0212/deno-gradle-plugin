@@ -2,10 +2,7 @@
 
 package io.github.masch0212.deno
 
-import io.github.masch0212.deno.command.DenoCommand
-import io.github.masch0212.deno.command.DenoCommandBuilder
-import io.github.masch0212.deno.command.DenoRunCommandBuilder
-import io.github.masch0212.deno.command.DenoTaskCommandBuilder
+import io.github.masch0212.deno.command.*
 import io.github.masch0212.deno.extensions.apply
 import io.github.masch0212.deno.extensions.denoListProperty
 import io.github.masch0212.deno.extensions.denoProperty
@@ -252,6 +249,34 @@ constructor(
   }
 
   /**
+   * Adds a Deno `serve` command.
+   *
+   * @param filePath The file path to serve.
+   * @param args The script arguments.
+   * @param configure The command configuration.
+   */
+  fun serve(
+      filePath: String,
+      vararg args: String,
+      configure: (DenoServeCommandBuilder.() -> Unit)? = null
+  ) = serve(filePath, args.toList(), configure)
+
+  /**
+   * Adds a Deno `serve` command.
+   *
+   * @param filePath The file path to serve.
+   * @param args The script arguments.
+   * @param configure The command configuration.
+   */
+  fun serve(
+      filePath: String,
+      args: Iterable<String>? = null,
+      configure: (DenoServeCommandBuilder.() -> Unit)? = null
+  ) {
+    commands.add(DenoServeCommandBuilder(filePath, args).apply(configure).build())
+  }
+
+  /**
    * Adds a Deno `task` command.
    *
    * @param taskName The task name.
@@ -277,5 +302,15 @@ constructor(
       configure: (DenoTaskCommandBuilder.() -> Unit)? = null
   ) {
     commands.add(DenoTaskCommandBuilder(taskName, args).apply(configure).build())
+  }
+
+  /**
+   * Adds a Deno `eval` command.
+   *
+   * @param script The script to evaluate.
+   * @param configure The command configuration.
+   */
+  fun eval(script: String, configure: (DenoEvalCommandBuilder.() -> Unit)? = null) {
+    commands.add(DenoEvalCommandBuilder(script).apply(configure).build())
   }
 }
