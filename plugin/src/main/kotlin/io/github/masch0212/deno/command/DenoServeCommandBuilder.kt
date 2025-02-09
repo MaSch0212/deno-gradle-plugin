@@ -5,6 +5,8 @@ import io.github.masch0212.deno.extensions.quoteIfNecessary
 class DenoServeCommandBuilder(
     var filePath: String,
     scriptArgs: Iterable<String>? = null,
+    installOptions: DenoCommandBuilderInstallOptionsComposable<DenoServeCommandBuilder> =
+        DenoCommandBuilderInstallOptionsComposableImpl(),
     runOptions: DenoCommandBuilderRunOptionsComposable<DenoServeCommandBuilder> =
         DenoCommandBuilderRunOptionsComposableImpl(),
     typeChecking: DenoCommandBuilderTypeCheckingComposable<DenoServeCommandBuilder> =
@@ -20,6 +22,7 @@ class DenoServeCommandBuilder(
         DenoCommandBuilderSecurityComposableImpl()
 ) :
     DenoCommandBuilderBase<DenoServeCommandBuilder>(),
+    DenoCommandBuilderWithInstallOptions<DenoServeCommandBuilder> by installOptions,
     DenoCommandBuilderWithRunOptions<DenoServeCommandBuilder> by runOptions,
     DenoCommandBuilderWithTypeChecking<DenoServeCommandBuilder> by typeChecking,
     DenoCommandBuilderWithFileWatching<DenoServeCommandBuilder> by fileWatching,
@@ -31,6 +34,7 @@ class DenoServeCommandBuilder(
   val scriptArgs = scriptArgs?.toMutableList() ?: mutableListOf()
 
   init {
+    installOptions.initialize(this)
     runOptions.initialize(this)
     typeChecking.initialize(this)
     fileWatching.initialize(this)

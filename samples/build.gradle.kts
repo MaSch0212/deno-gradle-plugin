@@ -24,7 +24,7 @@ tasks.register<RunDenoTask>("myTestDenoTask") {
    * - repl ❌
    * - eval ✅
    * - add ❌
-   * - install ⏳
+   * - install ✅
    * - uninstall ❌
    * - outdated ❌
    * - remove ❌

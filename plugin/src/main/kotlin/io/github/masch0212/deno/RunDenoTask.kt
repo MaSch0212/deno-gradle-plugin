@@ -231,7 +231,7 @@ constructor(
       filePath: String,
       vararg args: String,
       configure: (DenoRunCommandBuilder.() -> Unit)? = null
-  ) = run(filePath, args.toList(), configure)
+  ) = run(filePath, args.asIterable(), configure)
 
   /**
    * Adds a Deno `run` command.
@@ -259,7 +259,7 @@ constructor(
       filePath: String,
       vararg args: String,
       configure: (DenoServeCommandBuilder.() -> Unit)? = null
-  ) = serve(filePath, args.toList(), configure)
+  ) = serve(filePath, args.asIterable(), configure)
 
   /**
    * Adds a Deno `serve` command.
@@ -312,5 +312,29 @@ constructor(
    */
   fun eval(script: String, configure: (DenoEvalCommandBuilder.() -> Unit)? = null) {
     commands.add(DenoEvalCommandBuilder(script).apply(configure).build())
+  }
+
+  /**
+   * Adds a Deno `install` command.
+   *
+   * @param packagesToInstall The packages to install.
+   * @param configure The command configuration.
+   */
+  fun install(
+      vararg packagesToInstall: String,
+      configure: (DenoInstallCommandBuilder.() -> Unit)? = null
+  ) = install(packagesToInstall.asIterable(), configure)
+
+  /**
+   * Adds a Deno `install` command.
+   *
+   * @param packagesToInstall The packages to install.
+   * @param configure The command configuration.
+   */
+  fun install(
+      packagesToInstall: Iterable<String>,
+      configure: (DenoInstallCommandBuilder.() -> Unit)? = null
+  ) {
+    commands.add(DenoInstallCommandBuilder(packagesToInstall.asIterable()).apply(configure).build())
   }
 }
