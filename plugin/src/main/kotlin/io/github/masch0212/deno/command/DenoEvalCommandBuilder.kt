@@ -6,11 +6,18 @@ class DenoEvalCommandBuilder(
     val code: String,
     runOptions: DenoCommandBuilderRunOptionsComposable<DenoEvalCommandBuilder> =
         DenoCommandBuilderRunOptionsComposableImpl(),
-    typeChecking: DenoCommandBuilderTypeCheckingComposable<DenoEvalCommandBuilder>
+    typeChecking: DenoCommandBuilderTypeCheckingComposable<DenoEvalCommandBuilder> =
+        DenoCommandBuilderTypeCheckingComposableImpl(),
+    debugging: DenoCommandBuilderDebuggingComposable<DenoEvalCommandBuilder> =
+        DenoCommandBuilderDebuggingComposableImpl(),
+    dependencyManagement: DenoCommandBuilderDependencyManagementComposable<DenoEvalCommandBuilder> =
+        DenoCommandBuilderDependencyManagementComposableImpl()
 ) :
     DenoCommandBuilderBase<DenoEvalCommandBuilder>(),
     DenoCommandBuilderWithRunOptions<DenoEvalCommandBuilder> by runOptions,
-    DenoCommandBuilderWithTypeChecking<DenoEvalCommandBuilder> by typeChecking {
+    DenoCommandBuilderWithTypeChecking<DenoEvalCommandBuilder> by typeChecking,
+    DenoCommandBuilderWithDebugging<DenoEvalCommandBuilder> by debugging,
+    DenoCommandBuilderWithDependencyManagement<DenoEvalCommandBuilder> by dependencyManagement {
 
   init {
     typeChecking.initialize(this)

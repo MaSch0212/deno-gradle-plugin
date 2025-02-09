@@ -105,10 +105,10 @@ constructor(
     commands.forEach { command ->
       if (logger.isInfoEnabled) {
         logger.info(
-            "\n> Deno command: {}",
+            "\n--> Deno command: {}",
             command.toString(deno.target, includeEnv = true, additionalEnv = commandsEnvironment))
       } else {
-        logger.quiet("\n> Deno command: {}", command.toString(deno.target, includeEnv = false))
+        logger.quiet("\n--> Deno command: {}", command.toString(deno.target, includeEnv = false))
       }
 
       execOperations.exec {

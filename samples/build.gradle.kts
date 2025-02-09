@@ -5,7 +5,7 @@ plugins {
   id("com.ncorti.ktfmt.gradle") version "0.22.0"
 }
 
-// deno { version.set("2.1.9") }
+deno { version.set("2.1.9") }
 
 tasks.register<RunDenoTask>("myTestDenoTask") {
   dependsOn(tasks.installDeno)
@@ -15,4 +15,32 @@ tasks.register<RunDenoTask>("myTestDenoTask") {
     allowAll()
     scriptArgs("--arg-2")
   }
+
+  /**
+   * Commands:
+   * - run ✅
+   * - serve ⏳
+   * - task ✅
+   * - repl ❌
+   * - eval ✅
+   * - add ❌
+   * - install ⏳
+   * - uninstall ❌
+   * - outdated ❌
+   * - remove ❌
+   * - bench ❌
+   * - check ⏳
+   * - clean ❌
+   * - compile ⏳
+   * - coverage ⏳
+   * - doc ⏳
+   * - fmt ⏳
+   * - info ❌
+   * - jupyter ❌
+   * - lint ⏳
+   * - init ❌
+   * - test ⏳
+   * - publish ⏳
+   * - upgrade ❌
+   */
 }

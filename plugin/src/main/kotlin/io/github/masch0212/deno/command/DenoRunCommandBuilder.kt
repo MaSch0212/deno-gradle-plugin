@@ -11,12 +11,21 @@ class DenoRunCommandBuilder(
         DenoCommandBuilderRunOptionsComposableImpl(),
     typeChecking: DenoCommandBuilderTypeCheckingComposable<DenoRunCommandBuilder> =
         DenoCommandBuilderTypeCheckingComposableImpl(),
+    fileWatching: DenoCommandBuilderFileWatchingComposable<DenoRunCommandBuilder> =
+        DenoCommandBuilderFileWatchingComposableImpl(),
+    debugging: DenoCommandBuilderDebuggingComposable<DenoRunCommandBuilder> =
+        DenoCommandBuilderDebuggingComposableImpl(),
+    dependencyManagement: DenoCommandBuilderDependencyManagementComposable<DenoRunCommandBuilder> =
+        DenoCommandBuilderDependencyManagementComposableImpl(),
     security: DenoCommandBuilderSecurityComposable<DenoRunCommandBuilder> =
         DenoCommandBuilderSecurityComposableImpl()
 ) :
     DenoCommandBuilderBase<DenoRunCommandBuilder>(),
     DenoCommandBuilderWithRunOptions<DenoRunCommandBuilder> by runOptions,
     DenoCommandBuilderWithTypeChecking<DenoRunCommandBuilder> by typeChecking,
+    DenoCommandBuilderWithFileWatching<DenoRunCommandBuilder> by fileWatching,
+    DenoCommandBuilderWithDebugging<DenoRunCommandBuilder> by debugging,
+    DenoCommandBuilderWithDependencyManagement<DenoRunCommandBuilder> by dependencyManagement,
     DenoCommandBuilderWithSecurity<DenoRunCommandBuilder> by security {
 
   /** The arguments to pass to the script. */
