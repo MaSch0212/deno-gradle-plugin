@@ -1,3 +1,5 @@
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
+
 package io.github.masch0212.deno.command
 
 import io.github.masch0212.deno.extensions.quoteIfNecessary

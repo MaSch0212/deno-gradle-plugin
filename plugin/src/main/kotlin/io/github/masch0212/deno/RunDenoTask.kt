@@ -337,4 +337,23 @@ constructor(
   ) {
     commands.add(DenoInstallCommandBuilder(packagesToInstall.asIterable()).apply(configure).build())
   }
+
+  /**
+   * Adds a Deno `check` command.
+   *
+   * @param files The files to check.
+   * @param configure The command configuration.
+   */
+  fun check(vararg files: String, configure: (DenoCheckCommandBuilder.() -> Unit)? = null) =
+      check(files.asIterable(), configure)
+
+  /**
+   * Adds a Deno `check` command.
+   *
+   * @param files The files to check.
+   * @param configure The command configuration.
+   */
+  fun check(files: Iterable<String>, configure: (DenoCheckCommandBuilder.() -> Unit)? = null) {
+    commands.add(DenoCheckCommandBuilder(files).apply(configure).build())
+  }
 }

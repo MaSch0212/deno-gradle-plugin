@@ -29,7 +29,7 @@ tasks.register<RunDenoTask>("myTestDenoTask") {
    * - outdated ❌
    * - remove ❌
    * - bench ❌
-   * - check ⏳
+   * - check ✅
    * - clean ❌
    * - compile ⏳
    * - coverage ⏳
