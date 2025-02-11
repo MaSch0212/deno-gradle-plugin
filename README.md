@@ -29,6 +29,9 @@ Add the plugin to your Gradle project and use the tasks as follows:
 ### Kotlin DSL
 
 ```kotlin
+import io.github.masch0212.deno.InstallDenoTask
+import io.github.masch0212.deno.RunDenoTask
+
 plugins {
   id("io.github.masch0212.deno")
 }
@@ -71,6 +74,9 @@ tasks.register<RunDenoTask>("myTestDenoTask2_1_8") {
 ### Groovy DSL
 
 ```groovy
+import io.github.masch0212.deno.InstallDenoTask
+import io.github.masch0212.deno.RunDenoTask
+
 plugins {
   id 'io.github.masch0212.deno'
 }
