@@ -1,6 +1,6 @@
 # Deno Gradle Plugin
 
-This Gradle plugin provides tasks to install and run Deno commands.
+This Gradle plugin provides tasks to install Deno and run Deno commands.
 
 ## Motivation 💥
 

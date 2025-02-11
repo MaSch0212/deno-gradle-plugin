@@ -28,8 +28,8 @@ gradlePlugin {
     create("denoPlugin") {
       id = "io.github.masch0212.deno"
       displayName = "Deno Gradle Plugin"
-      description = "A plugin to install and manage Deno versions"
-      tags = listOf("deno")
+      description = "A plugin to install Deno and run Deno commands."
+      tags = listOf("deno", "node", "npm", "jsr", "typescript", "javascript", "js", "ts")
       implementationClass = "io.github.masch0212.deno.DenoPlugin"
     }
   }
