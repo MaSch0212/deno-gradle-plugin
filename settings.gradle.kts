@@ -5,3 +5,5 @@ rootProject.name = "deno-gradle-plugin"
 includeBuild("plugin")
 
 include("samples")
+
+include("samples-groovy")

@@ -1,5 +1,6 @@
 package io.github.masch0212.deno.command
 
+/** A command builder that supports file watching. */
 interface DenoCommandBuilderWithFileWatching<T> {
   /**
    * Watch for file changes and restart process automatically. Local files from entry point module

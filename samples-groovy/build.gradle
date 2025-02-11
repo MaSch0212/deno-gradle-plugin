@@ -1,0 +1,32 @@
+import io.github.masch0212.deno.InstallDenoTask
+import io.github.masch0212.deno.RunDenoTask
+
+deno {
+  version = "2.1.9"
+}
+
+tasks.register("myTestDenoTask", RunDenoTask) {
+  dependsOn(tasks.installDeno)
+  group = "deno"
+  it.command {
+    it.args("--version")
+  }
+  it.run("scripts/deno test.ts", ["--arg-1"]) {
+    it.allowAll()
+    it.scriptArgs("--arg-2")
+  }
+  it.task("test", []) {}
+}
+
+def installDeno2_1_8 = tasks.register("installDeno2_1_8", InstallDenoTask) {
+  version = "2.1.8"
+}
+
+tasks.register("runDeno2_1_8", RunDenoTask) {
+  dependsOn(installDeno2_1_8)
+  group = "deno"
+  version = "2.1.8"
+  it.command {
+    it.args("--version")
+  }
+}

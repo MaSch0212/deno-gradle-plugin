@@ -1,9 +1,7 @@
+import io.github.masch0212.deno.InstallDenoTask
 import io.github.masch0212.deno.RunDenoTask
 
-plugins {
-  id("io.github.masch0212.deno")
-  id("com.ncorti.ktfmt.gradle") version "0.22.0"
-}
+plugins { id("com.ncorti.ktfmt.gradle") version "0.22.0" }
 
 deno { version.set("2.1.9") }
 
@@ -11,7 +9,7 @@ tasks.register<RunDenoTask>("myTestDenoTask") {
   dependsOn(tasks.installDeno)
   group = "Deno"
   command("--version")
-  run("D:\\temp\\deno test.ts", "--arg-1") {
+  run("scripts/deno test.ts", "--arg-1") {
     allowAll()
     scriptArgs("--arg-2")
   }
@@ -43,4 +41,13 @@ tasks.register<RunDenoTask>("myTestDenoTask") {
    * - publish ⏳
    * - upgrade ❌
    */
+}
+
+val installDeno2_1_8 = tasks.register<InstallDenoTask>("installDeno2_1_8") { version = "2.1.8" }
+
+tasks.register<RunDenoTask>("runDeno2_1_8") {
+  dependsOn(installDeno2_1_8)
+  group = "Deno"
+  version = "2.1.8"
+  command("--version")
 }

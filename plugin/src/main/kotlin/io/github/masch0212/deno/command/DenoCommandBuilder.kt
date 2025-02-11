@@ -94,7 +94,7 @@ abstract class DenoCommandBuilderBase<T : DenoCommandBuilderBase<T>> {
    */
   fun workingDir(workingDir: String) = apply { this.workingDir = workingDir }
 
-  /** Sets the working directory for the command. */
+  /** Builds the command. */
   internal open fun build() = DenoCommand(args.toList(), environment.toMap(), workingDir)
 
   protected fun apply(block: T.() -> Unit): T {
@@ -103,4 +103,5 @@ abstract class DenoCommandBuilderBase<T : DenoCommandBuilderBase<T>> {
   }
 }
 
+/** A builder for creating any Deno command. */
 class DenoCommandBuilder : DenoCommandBuilderBase<DenoCommandBuilder>()

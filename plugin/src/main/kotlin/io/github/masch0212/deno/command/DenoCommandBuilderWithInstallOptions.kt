@@ -1,5 +1,6 @@
 package io.github.masch0212.deno.command
 
+/** A command builder that allows setting options for installing packages. */
 interface DenoCommandBuilderWithInstallOptions<T> {
   /**
    * Allow running npm lifecycle scripts for the given packages.

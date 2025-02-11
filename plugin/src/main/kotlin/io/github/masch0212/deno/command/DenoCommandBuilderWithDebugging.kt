@@ -1,5 +1,6 @@
 package io.github.masch0212.deno.command
 
+/** A command builder that supports debugging options. */
 interface DenoCommandBuilderWithDebugging<T> {
   /**
    * Activate inspector on host:port. (Default: `127.0.0.1:9229`)

@@ -1,5 +1,6 @@
 package io.github.masch0212.deno.command
 
+/** A command builder that supports dependency management options. */
 interface DenoCommandBuilderWithDependencyManagement<T> {
   /** Require that remote dependencies are already cached. */
   fun cachedOnly(): T

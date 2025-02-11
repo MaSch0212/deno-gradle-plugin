@@ -8,7 +8,7 @@ plugins {
 
 group = "io.github.masch0212"
 
-version = "0.0.1"
+version = "0.1.0"
 
 kotlin { jvmToolchain(21) }
 

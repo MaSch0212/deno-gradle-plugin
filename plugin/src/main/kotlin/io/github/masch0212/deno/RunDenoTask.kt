@@ -115,7 +115,7 @@ constructor(
               Path(command.workingDir).isAbsolute -> File(command.workingDir)
               else -> File(this@RunDenoTask.workingDir, command.workingDir)
             })
-        commandLine(deno.target.executableFileName)
+        commandLine(deno.executable)
         args(command.args)
         environment(commandsEnvironment)
         environment(command.env)
