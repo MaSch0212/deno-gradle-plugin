@@ -62,6 +62,7 @@ abstract class DenoService : BuildService<DenoService.Params> {
               Deno(v, denoExecutable, target)
             }
             .also {
+              ensureExecutable(it)
               if (alreadyInstalled) {
                 logger.quiet("Deno {} is already installed.", v)
               } else {
@@ -69,6 +70,14 @@ abstract class DenoService : BuildService<DenoService.Params> {
               }
             }
       }
+
+  private fun ensureExecutable(deno: Deno) {
+    if (!deno.executable.canExecute()) {
+      logger.debug("Setting executable permission for Deno {}...", deno.version)
+      deno.executable.setExecutable(true)
+      logger.debug("Executable permission set for Deno {}.", deno.version)
+    }
+  }
 
   private fun fetchLatestDenoVersion(): String {
     logger.info("Fetching latest Deno version...")
