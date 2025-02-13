@@ -6,7 +6,6 @@ import io.github.masch0212.deno.utils.DenoTarget
 import io.github.masch0212.deno.utils.OSInfo
 import java.io.File
 import java.net.URI
-import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import java.util.zip.ZipFile
 import org.gradle.api.services.BuildService
@@ -17,8 +16,6 @@ abstract class DenoService : BuildService<DenoService.Params> {
   interface Params : BuildServiceParameters {
     var cacheRoots: List<File>
   }
-
-  private val id = UUID.randomUUID().toString()
 
   private val target: DenoTarget by lazy { DenoTarget.fromOsInfo(OSInfo.CURRENT) }
 
@@ -41,13 +38,13 @@ abstract class DenoService : BuildService<DenoService.Params> {
               alreadyInstalled = false
 
               val installDir = File(parameters.cacheRoots.first(), "deno/$v")
-              val downloadUrl = "https://dl.deno.land/release/$version/deno-${target.value}.zip"
+              val downloadUrl = "https://dl.deno.land/release/$v/deno-${target.value}.zip"
               val zipFile = File.createTempFile("deno", ".zip").apply { deleteOnExit() }
               val denoExecutable = File(installDir, target.executableFileName)
 
               installDir.mkdirs()
 
-              logger.quiet("Downloading Deno {}...", version, downloadUrl)
+              logger.quiet("Downloading Deno {}...", v, downloadUrl)
               logger.debug("Downloading Deno {} from {}...", v, downloadUrl)
               URI(downloadUrl).toURL().openStream().use { input ->
                 zipFile.outputStream().use { output -> input.copyTo(output) }

@@ -4,12 +4,13 @@ import io.github.masch0212.deno.extensions.combine
 import io.github.masch0212.deno.extensions.quoteIfNecessary
 import io.github.masch0212.deno.utils.DenoTarget
 import io.github.masch0212.deno.utils.OSInfo
+import java.io.Serializable
 
 data class DenoCommand(
     val args: List<String>,
     val env: Map<String, String>,
     val workingDir: String?
-) {
+) : Serializable {
   override fun toString() = toString(DenoTarget.fromOsInfo(OSInfo.CURRENT))
 
   fun toString(

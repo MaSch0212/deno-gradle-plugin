@@ -37,7 +37,7 @@ constructor(
   @Input val environment = mutableMapOf<String, String>()
 
   /** The working directory for the commands. */
-  @Input val workingDir = "."
+  @Input var workingDir = "."
 
   /** Deno version to use. */
   @Input var version = denoProperty { version }
