@@ -17,19 +17,33 @@ abstract class DenoService : BuildService<DenoService.Params> {
     var cacheRoots: List<File>
   }
 
+  private val denoInstallCacheDir = File(parameters.cacheRoots.first(), "deno")
+
   private val target: DenoTarget by lazy { DenoTarget.fromOsInfo(OSInfo.CURRENT) }
 
   private val cachedVersions: ConcurrentHashMap<String, Deno> by lazy { findCachedDenoVersions() }
 
   private val latestVersion: String by lazy { fetchLatestDenoVersion() }
 
+  fun getDenoExecutable(version: String, target: DenoTarget) =
+      resolveVersion(version).let { v ->
+        cachedVersions[v]?.executable ?: File(denoInstallCacheDir, v)
+      }
+
+  fun resolveVersion(version: String) =
+      when {
+        version.startsWith("v") -> version
+        version == "latest" -> latestVersion
+        else -> "v$version"
+      }
+
   fun get(version: String) =
-      normalizeVersion(version).let { v ->
+      resolveVersion(version).let { v ->
         cachedVersions[v] ?: throw IllegalArgumentException("Deno $v is not installed.")
       }
 
   fun getOrDownload(version: String) =
-      normalizeVersion(version).let { v ->
+      resolveVersion(version).let { v ->
         logger.debug("Checking if Deno {} is installed...", v)
         var alreadyInstalled = true
         cachedVersions
@@ -37,7 +51,7 @@ abstract class DenoService : BuildService<DenoService.Params> {
               logger.debug("Deno {} is not installed.", v)
               alreadyInstalled = false
 
-              val installDir = File(parameters.cacheRoots.first(), "deno/$v")
+              val installDir = File(denoInstallCacheDir, v)
               val downloadUrl = "https://dl.deno.land/release/$v/deno-${target.value}.zip"
               val zipFile = File.createTempFile("deno", ".zip").apply { deleteOnExit() }
               val denoExecutable = File(installDir, target.executableFileName)
@@ -100,11 +114,4 @@ abstract class DenoService : BuildService<DenoService.Params> {
     logger.debug("Found cached Deno versions: {}", result)
     return result
   }
-
-  private fun normalizeVersion(version: String) =
-      when {
-        version.startsWith("v") -> version
-        version == "latest" -> latestVersion
-        else -> "v$version"
-      }
 }

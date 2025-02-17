@@ -1,8 +1,9 @@
 package io.github.masch0212.deno.utils
 
 import java.io.File
+import java.io.Serializable
 
-enum class DenoTarget(val value: String, val executableFileName: String) {
+enum class DenoTarget(val value: String, val executableFileName: String) : Serializable {
   LINUX_ARM64("aarch64-unknown-linux-gnu", "deno"),
   LINUX_X86_64("x86_64-unknown-linux-gnu", "deno"),
   MACOS_ARM64("aarch64-apple-darwin", "deno"),

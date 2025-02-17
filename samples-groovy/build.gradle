@@ -15,7 +15,6 @@ tasks.register("myTestDenoTask", RunDenoTask) {
     it.allowAll()
     it.scriptArgs("--arg-2")
   }
-  it.task("test", []) {}
 }
 
 def installDeno2_1_8 = tasks.register("installDeno2_1_8", InstallDenoTask) {

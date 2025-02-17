@@ -28,6 +28,8 @@ constructor(
     private val execOperations: ExecOperations,
     private val globalCache: DefaultGlobalScopedCacheBuilderFactory
 ) : DefaultTask() {
+  private var _version: String = denoProperty { version }
+
   @get:ServiceReference("deno") protected abstract val denoService: Property<DenoService>
 
   /** Deno commands to run. */
@@ -40,7 +42,12 @@ constructor(
   @Input var workingDir = "."
 
   /** Deno version to use. */
-  @Input var version = denoProperty { version }
+  @get:Input
+  var version: String
+    get() = denoService.get().resolveVersion(_version)
+    set(version) {
+      _version = version
+    }
 
   /**
    * A list of bearer tokens and hostnames to use when fetching remote modules from private
