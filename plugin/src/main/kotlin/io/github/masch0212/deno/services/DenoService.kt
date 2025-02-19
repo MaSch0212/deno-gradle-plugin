@@ -27,7 +27,8 @@ abstract class DenoService : BuildService<DenoService.Params> {
 
   fun getDenoExecutable(version: String, target: DenoTarget) =
       resolveVersion(version).let { v ->
-        cachedVersions[v]?.executable ?: File(denoInstallCacheDir, v)
+        cachedVersions[v]?.executable
+            ?: File(denoInstallCacheDir, "$v/${target.executableFileName}")
       }
 
   fun resolveVersion(version: String) =
