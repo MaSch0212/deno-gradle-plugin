@@ -1,5 +1,9 @@
 # Deno Gradle Plugin
 
+[![GitHub License](https://img.shields.io/github/license/MaSch0212/deno-gradle-plugin)](LICENSE)
+<br>
+![Gradle Plugin Portal Version](https://img.shields.io/gradle-plugin-portal/v/io.github.masch0212.deno?logo=gradle&label=io.github.masch0212.deno)
+
 This Gradle plugin provides tasks to install Deno and run Deno commands.
 
 ## Motivation 💥
