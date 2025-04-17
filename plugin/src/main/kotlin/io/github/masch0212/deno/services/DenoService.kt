@@ -4,20 +4,20 @@ import io.github.masch0212.deno.extensions.extractAll
 import io.github.masch0212.deno.utils.Deno
 import io.github.masch0212.deno.utils.DenoTarget
 import io.github.masch0212.deno.utils.OSInfo
+import org.gradle.api.services.BuildService
+import org.gradle.api.services.BuildServiceParameters
+import org.gradle.internal.cc.base.logger
 import java.io.File
 import java.net.URI
 import java.util.concurrent.ConcurrentHashMap
 import java.util.zip.ZipFile
-import org.gradle.api.services.BuildService
-import org.gradle.api.services.BuildServiceParameters
-import org.gradle.internal.cc.base.logger
 
 abstract class DenoService : BuildService<DenoService.Params> {
   interface Params : BuildServiceParameters {
-    var cacheRoots: List<File>
+    var cacheRoot: File
   }
 
-  private val denoInstallCacheDir = File(parameters.cacheRoots.first(), "deno")
+  private val denoInstallCacheDir = File(parameters.cacheRoot, "deno")
 
   private val target: DenoTarget by lazy { DenoTarget.fromOsInfo(OSInfo.CURRENT) }
 
@@ -103,12 +103,11 @@ abstract class DenoService : BuildService<DenoService.Params> {
     logger.info("Checking for cached Deno versions...")
 
     val result = ConcurrentHashMap<String, Deno>()
-    parameters.cacheRoots.forEach { cache ->
-      File(cache, "deno").listFiles()?.forEach { versionDir ->
-        val denoExecutable = File(versionDir, target.executableFileName)
-        if (denoExecutable.exists()) {
-          result[versionDir.name] = Deno(versionDir.name, denoExecutable, target)
-        }
+
+    File(parameters.cacheRoot, "deno").listFiles()?.forEach { versionDir ->
+      val denoExecutable = File(versionDir, target.executableFileName)
+      if (denoExecutable.exists()) {
+        result[versionDir.name] = Deno(versionDir.name, denoExecutable, target)
       }
     }
 

@@ -1,18 +1,16 @@
 package io.github.masch0212.deno
 
 import io.github.masch0212.deno.services.DenoService
+import java.io.File
 import javax.inject.Inject
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.cache.internal.scopes.DefaultGlobalScopedCacheBuilderFactory
 
-class DenoPlugin
-@Inject
-constructor(private val globalCache: DefaultGlobalScopedCacheBuilderFactory) : Plugin<Project> {
+class DenoPlugin @Inject constructor(private val project: Project) : Plugin<Project> {
   override fun apply(target: Project) {
     // Services
     target.gradle.sharedServices.registerIfAbsent("deno", DenoService::class.java) {
-      parameters.cacheRoots = globalCache.globalCacheRoots
+      parameters.cacheRoot = File(project.gradle.gradleUserHomeDir, "caches")
     }
 
     // Extensions

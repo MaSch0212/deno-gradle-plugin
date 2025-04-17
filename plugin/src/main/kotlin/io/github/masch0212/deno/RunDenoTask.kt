@@ -18,16 +18,11 @@ import org.gradle.api.services.ServiceReference
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
-import org.gradle.cache.internal.scopes.DefaultGlobalScopedCacheBuilderFactory
 import org.gradle.process.ExecOperations
 
 /** Task to run Deno commands. */
-abstract class RunDenoTask
-@Inject
-constructor(
-    private val execOperations: ExecOperations,
-    private val globalCache: DefaultGlobalScopedCacheBuilderFactory
-) : DefaultTask() {
+abstract class RunDenoTask @Inject constructor(private val execOperations: ExecOperations) :
+    DefaultTask() {
   private var _version: String = denoProperty { version }
 
   @get:ServiceReference("deno") protected abstract val denoService: Property<DenoService>
@@ -136,7 +131,7 @@ constructor(
     put(
         "DENO_DIR",
         cacheDir
-            .replace("{GRADLE_CACHE}", globalCache.globalCacheRoots.first().absolutePath)
+            .replace("{GRADLE_CACHE}", denoService.get().parameters.cacheRoot.absolutePath)
             .replace("{DENO_VERSION}", deno.version)
             .replace("{DENO}", deno.executable.parent))
     installRoot?.also { put("DENO_INSTALL_ROOT", it) }
