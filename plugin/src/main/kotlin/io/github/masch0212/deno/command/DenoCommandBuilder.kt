@@ -41,7 +41,7 @@ abstract class DenoCommandBuilderBase<T : DenoCommandBuilderBase<T>> {
    */
   fun <V> valueArg(arg: String, values: Iterable<V>) = apply {
     if (values.none()) args.add(arg)
-    else args.add("$arg=\"${values.joinToString(",").quoteIfNecessary()}\"")
+    else args.add("$arg=${values.joinToString(",").quoteIfNecessary()}")
   }
 
   /**

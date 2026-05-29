@@ -50,7 +50,7 @@ class DenoTaskCommandBuilder(val taskName: String, taskArgs: Iterable<String>? =
    */
   fun <V> taskValueArg(arg: String, values: Iterable<V>) = apply {
     if (values.none()) taskArgs.add(arg)
-    else taskArgs.add("$arg=\"${values.joinToString(",").quoteIfNecessary()}\"")
+    else taskArgs.add("$arg=${values.joinToString(",").quoteIfNecessary()}")
   }
 
   /**
