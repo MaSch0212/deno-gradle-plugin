@@ -85,7 +85,7 @@ class DenoRunCommandBuilder(
    */
   fun <V> scriptValueArg(arg: String, values: Iterable<V>) = apply {
     if (values.none()) scriptArgs.add(arg)
-    else scriptArgs.add("$arg=\"${values.joinToString { "," }.quoteIfNecessary()}\"")
+    else scriptArgs.add("$arg=\"${values.joinToString(",").quoteIfNecessary()}\"")
   }
 
   /**
